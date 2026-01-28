@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbf0909d2d0784b9ca750ff6b9e22d74, type: 3}
-  m_Name: Sorbear
+  m_Name: Moku
   m_EditorClassIdentifier: 
-  npcName: Sorbear
+  npcName: Moku
   dialogueLines:
-  - Hello
-  - What can I get you
-  - ???))
-  autoProgressLines: 010101
-  autoProgressDelay: 1
-  typeSpeed: 0.03
+  - 'Hello! '
+  - 'My name is Moku! '
+  - What's your name?
+  - Do you want to help me with some chores?
+  - Do you want to help me with some chores?
+  autoProgressLines: 0101010101
+  autoProgressDelay: 2
+  typeSpeed: 0.05
   dialogueChoices: []
