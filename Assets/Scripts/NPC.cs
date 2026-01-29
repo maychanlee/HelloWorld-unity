@@ -36,6 +36,17 @@ public class NPC : MonoBehaviour, IInteractable
         }
     }
 
+    void Update()
+    {
+        if (!isDialogueActive)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            HandleDialogueInput();
+        }
+    }
+
     void StartDialogue()
     {
         isDialogueActive = true;
@@ -52,9 +63,11 @@ public class NPC : MonoBehaviour, IInteractable
             StopAllCoroutines();
             dialogueUI.SetDialogueText(dialogueData.dialogueLines[dialogueIndex]);
             isTyping = false;
+            return;
         }
 
         dialogueUI.ClearChoices();
+
         if(dialogueData.endDialogueLines.Length > dialogueIndex && dialogueData.endDialogueLines[dialogueIndex])
         {
             EndDialogue();
@@ -104,6 +117,20 @@ public class NPC : MonoBehaviour, IInteractable
         {
             int nextIndex = choice.nextDialogueIndices[i];
             dialogueUI.CreateChoiceButton(choice.dialogueChoices[i], () => ChooseOption(nextIndex));
+        }
+    }
+
+    void HandleDialogueInput()
+    {
+        if (isTyping)
+        {
+            StopAllCoroutines();
+            dialogueUI.SetDialogueText(dialogueData.dialogueLines[dialogueIndex]);
+            isTyping = false;
+        }
+        else
+        {
+            NextDialogueLine();
         }
     }
 

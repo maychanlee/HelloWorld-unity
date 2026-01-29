@@ -16,10 +16,16 @@ MonoBehaviour:
   dialogueLines:
   - 'Hello! '
   - 'My name is Moku! '
-  - What's your name?
   - Do you want to help me with some chores?
-  - Do you want to help me with some chores?
+  - 'Thank you so much! '
+  - No Worries
   autoProgressLines: 0101010101
-  autoProgressDelay: 2
-  typeSpeed: 0.05
-  dialogueChoices: []
+  endDialogueLines: 0000000101
+  autoProgressDelay: 1
+  typeSpeed: 0.04
+  dialogueChoices:
+  - dialogueIndex: 2
+    dialogueChoices:
+    - YES
+    - NO
+    nextDialogueIndices: 0300000004000000

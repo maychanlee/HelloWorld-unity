@@ -16,7 +16,17 @@ MonoBehaviour:
   dialogueLines:
   - Hello!
   - I'm Kayu
-  autoProgressLines: 0101
+  - I love fruits
+  - Do you want to help me pick fruits in my yard?
+  - Thanks
+  - No Biggie
+  autoProgressLines: 010101010101
+  endDialogueLines: 000000000101
   autoProgressDelay: 1
-  typeSpeed: 0.03
-  dialogueChoices: []
+  typeSpeed: 0.04
+  dialogueChoices:
+  - dialogueIndex: 3
+    dialogueChoices:
+    - YES
+    - NO
+    nextDialogueIndices: 0400000005000000
