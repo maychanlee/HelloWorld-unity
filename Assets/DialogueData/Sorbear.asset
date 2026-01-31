@@ -15,9 +15,18 @@ MonoBehaviour:
   npcName: Sorbear
   dialogueLines:
   - Hello
-  - What can I get you
-  - ???))
-  autoProgressLines: 010101
+  - Welcome to my shop!
+  - Would you like to buy an ice cream?
+  - 'Great! Here''s an ice cream! '
+  - Have a great day!
+  - That's okay! I'll be here all day.
+  autoProgressLines: 010101010101
+  endDialogueLines: 000000000101
   autoProgressDelay: 1
-  typeSpeed: 0.03
-  dialogueChoices: []
+  typeSpeed: 0.04
+  dialogueChoices:
+  - dialogueIndex: 2
+    dialogueChoices:
+    - YES
+    - NO
+    nextDialogueIndices: 0300000005000000
