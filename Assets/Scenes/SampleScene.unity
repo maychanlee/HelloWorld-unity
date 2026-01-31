@@ -33660,9 +33660,10 @@ MonoBehaviour:
   manualStartPos: {x: 34, y: 27}
   weedPrefab: {fileID: 6238532741026791107, guid: bd548fce863164d86a617e5d1b3c3188, type: 3}
   player: {fileID: 1121417362}
-  gameplayMovementSpeed: 1
+  gameplayMovementSpeed: 2
   playerStartPosition: {fileID: 2020268383}
   mapBoundary: {fileID: 149069091}
+  returnMapBoundary: {fileID: 148456956}
   neighborHousePosition: {fileID: 1034460363}
   onGameComplete:
     m_PersistentCalls:
