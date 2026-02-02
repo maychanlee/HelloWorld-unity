@@ -14,7 +14,16 @@ public class WeedGameController : MonoBehaviour
     [SerializeField] private bool useManualStartPos = false;
     [SerializeField] private Vector2 manualStartPos = Vector2.zero;
     
-    
+    [Header("Minigame Identity")]
+    [SerializeField] private int neighborId;
+    [SerializeField] private int minigameId;
+    private MinigameKey currentKey;
+
+    [Header("Completion State")]
+    [SerializeField] private bool isComplete = false;
+    public bool IsComplete => isComplete;
+
+
     [Header("Weed Settings")]
     [SerializeField] private GameObject weedPrefab;
     private int totalWeeds; // 12 x 11 = 132
@@ -30,10 +39,10 @@ public class WeedGameController : MonoBehaviour
     private bool isGameActive = false;
     
     [Header("Teleport & Rewards")]
-    [SerializeField] private PolygonCollider2D mapBoundary;
-    [SerializeField] private PolygonCollider2D returnMapBoundary;
+    public PolygonCollider2D mapBoundary;
+    public PolygonCollider2D returnMapBoundary;
     CinemachineConfiner confiner;
-    [SerializeField] private Transform neighborHousePosition;
+    public Transform neighborHousePosition;
     public UnityEvent onGameComplete;
     
     [Header("UI References (Optional)")]
@@ -58,33 +67,44 @@ public class WeedGameController : MonoBehaviour
     }
     
     // Call this method when the player accepts the quest
-    public void StartWeedGame()
+    public void StartWeedGame(int neighborId, int minigameId)
     {
+        Debug.Log($"Starting Weed Game: Neighbor {neighborId} - Minigame {minigameId}");
+
+        if (player == null) Debug.LogError("Player is NULL");
+        if (weedPrefab == null) Debug.LogError("Weed Prefab is NULL");
+        if (playerStartPosition == null) Debug.LogError("Player Start Position is NULL");
+        if (mapBoundary == null) Debug.LogError("Map Boundary is NULL");
+        if (confiner == null) Debug.LogError("Cinemachine Confiner is NULL");
+        
+        this.neighborId = neighborId;
+        this.minigameId = minigameId;
+
+        currentKey = new MinigameKey(neighborId, minigameId);
+
+        Debug.Log($"Starting Weed Game: {currentKey}");
+        isComplete = false;
+
+
         // Store original player speed
         if (playerMovement != null)
         {
             originalPlayerSpeed = playerMovement.moveSpeed;
             playerMovement.moveSpeed = gameplayMovementSpeed;
         }
-        
-        // Teleport player to center of grid
+
         TeleportPlayerToGameStart();
         confiner.m_BoundingShape2D = mapBoundary;
-        
-        
-        // Generate the weed grid
+
         GenerateWeedGrid();
-        
-        
-        // Start the game
+
         isGameActive = true;
         gameTimer = 0f;
         remainingWeeds = totalWeeds;
-        
+
         UpdateUI();
-        
-        Debug.Log("Weed removal game started!");
     }
+
     
     private void GenerateWeedGrid()
     {
@@ -189,6 +209,8 @@ public class WeedGameController : MonoBehaviour
     private void CompleteGame()
     {
         isGameActive = false;
+        isComplete = true;
+
         
         // Log completion time
         int minutes = Mathf.FloorToInt(gameTimer / 60f);
@@ -196,6 +218,8 @@ public class WeedGameController : MonoBehaviour
         int milliseconds = Mathf.FloorToInt((gameTimer * 100f) % 100f);
         
         Debug.Log($"WEED GAME COMPLETED! Time: {minutes:00}:{seconds:00}.{milliseconds:00}");
+        Debug.Log($"COMPLETED {currentKey} in {GetFormattedTime()}");
+
         
         // Restore original player speed
         if (playerMovement != null)
@@ -218,7 +242,9 @@ public class WeedGameController : MonoBehaviour
             player.transform.position = neighborHousePosition.position;
             Debug.Log("Player teleported back to neighbor's house");
         }
-        
+
+        GameProgressManager.Instance.MarkMinigameComplete(currentKey);
+
         // Trigger reward sequence
         onGameComplete?.Invoke();
         

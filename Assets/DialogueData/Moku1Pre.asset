@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828b3a68cbbb14abfb0feaa4fbf3a285, type: 3}
+  m_Name: Moku1Pre
+  m_EditorClassIdentifier: 
+  lines:
+  - speakerName: Moku
+    text: 'Hi Clay, what brings you here? '
+    hasYesNo: 0
+    autoAdvanceDelay: 1.2
+    yesNextIndex: 0
+    noNextIndex: 0
+    markLearnedGreeting: 0
+  - speakerName: Clay
+    text: 'My mom said I should get out of the house more. '
+    hasYesNo: 0
+    autoAdvanceDelay: 1.2
+    yesNextIndex: 0
+    noNextIndex: 0
+    markLearnedGreeting: 0
+  - speakerName: Clay
+    text: 'Do you have anything you might need help on? '
+    hasYesNo: 0
+    autoAdvanceDelay: 1.2
+    yesNextIndex: 0
+    noNextIndex: 0
+    markLearnedGreeting: 0
+  - speakerName: Moku
+    text: 'My backyard is covered in weed now '
+    hasYesNo: 0
+    autoAdvanceDelay: 1.2
+    yesNextIndex: 0
+    noNextIndex: 0
+    markLearnedGreeting: 0
+  - speakerName: Moku
+    text: 'and I was going to spend some time mowing it. '
+    hasYesNo: 0
+    autoAdvanceDelay: 1.2
+    yesNextIndex: 0
+    noNextIndex: 0
+    markLearnedGreeting: 0
+  - speakerName: Moku
+    text: 'Would you like to help me with that? '
+    hasYesNo: 1
+    autoAdvanceDelay: 1.2
+    yesNextIndex: 0
+    noNextIndex: 7
+    markLearnedGreeting: 0
+  - speakerName: Moku
+    text: 'No worries! '
+    hasYesNo: 0
+    autoAdvanceDelay: 1.2
+    yesNextIndex: 0
+    noNextIndex: 0
+    markLearnedGreeting: 0

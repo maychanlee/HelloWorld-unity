@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Minigames/Weed Game Config")]
+[CreateAssetMenu(menuName = "Config/Weed Game Config")]
 public class WeedGameConfig : ScriptableObject
 {
     [Header("Identity")]
