@@ -15,7 +15,6 @@ public class Weed : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            // Notify the game manager
             if (gameManager != null)
             {
                 gameManager.OnWeedDestroyed();
