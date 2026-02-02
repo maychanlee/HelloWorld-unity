@@ -22,6 +22,7 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
 
     private bool playerInRange;
     private bool questActive;
+    private bool isInteracting;
 
     // =========================
     // PLAYER INTERACTION
@@ -32,7 +33,10 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.Space))
         {
-            Interact();
+            if (!questActive && !isInteracting)
+            {
+                Interact();
+            }
         }
     }
 
@@ -43,21 +47,15 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     
     private void HandleInteraction()
     {
-        if (questActive) return;
+        if (questActive || isInteracting) return;
 
-        // if (currentMinigameIndex >= minigames.Count)
-        // {
-        //     dialogueManager.ShowLine(
-        //         new DialogueLine
-        //         {
-        //             text = "Thanks again for all your help!",
-        //             speakerName = neighborName
-        //         }
-        //     );
-        //     return;
-        // }
-
+        isInteracting = true;
         PlayPreGameDialogue();
+
+    }
+    private void OnDialogueComplete()
+    {
+        isInteracting = false;
     }
 
     // =========================
@@ -117,37 +115,37 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     // =========================
     // DIALOGUE PLAYER
     // =========================
-private void PlayDialogueSequence(
-    DialogueSequence seq,
-    int index,
-    bool isPreGame,
-    UnityAction onComplete = null)
-{
-    if (seq == null || index >= seq.lines.Count)
+    private void PlayDialogueSequence(
+        DialogueSequence seq,
+        int index,
+        bool isPreGame,
+        UnityAction onComplete = null)
     {
-        // Sequence finished
-        onComplete?.Invoke();
-        return;
+        if (seq == null || index >= seq.lines.Count)
+        {
+            // Sequence finished
+            onComplete?.Invoke();
+            return;
+        }
+
+        DialogueLine line = seq.lines[index];
+
+        dialogueManager.ShowLine(
+            line,
+            onYes: line.hasYesNo && isPreGame
+                ? () =>
+                {
+                    StartMinigame();
+                    dialogueManager.HideDialogue();
+                }
+                : null,
+            onNo: line.hasYesNo && isPreGame
+                ? () => dialogueManager.HideDialogue()
+                : null,
+            onAutoAdvance: () =>
+                PlayDialogueSequence(seq, index + 1, isPreGame, onComplete)
+        );
     }
-
-    DialogueLine line = seq.lines[index];
-
-    dialogueManager.ShowLine(
-        line,
-        onYes: line.hasYesNo && isPreGame
-            ? () =>
-            {
-                StartMinigame();
-                dialogueManager.HideDialogue();
-            }
-            : null,
-        onNo: line.hasYesNo && isPreGame
-            ? () => dialogueManager.HideDialogue()
-            : null,
-        onAutoAdvance: () =>
-            PlayDialogueSequence(seq, index + 1, isPreGame, onComplete)
-    );
-}
 
     // =========================
     // TRIGGER ZONE

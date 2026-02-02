@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 332855741df8b42ee94feb42399d4e62, type: 3}
-  m_Name: Test
+  m_Script: {fileID: 11500000, guid: 828b3a68cbbb14abfb0feaa4fbf3a285, type: 3}
+  m_Name: Moku2Pre
   m_EditorClassIdentifier: 
-  dialogue:
-  - "Hello, World!\nMy name is Clay\t"
-  - Welcome to my Neighborhood!
+  lines:
+  - speakerName: Moku
+    text: Back so soon for more yard work?
+    hasYesNo: 1
+    autoAdvanceDelay: 0.75
+    yesNextIndex: 0
+    noNextIndex: 0
