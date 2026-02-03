@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b868cdde6686402983ebc3657f2a860, type: 3}
+  m_Name: Kayu3
+  m_EditorClassIdentifier: 
+  neighborId: 2
+  minigameId: 3
+  preGameDialogue: {fileID: 11400000, guid: a9cae49ae66b845a2a65bd3c681f46c8, type: 2}
+  postGameDialogue: {fileID: 11400000, guid: 8d24cfedc4c6546ea943a375269e99cf, type: 2}

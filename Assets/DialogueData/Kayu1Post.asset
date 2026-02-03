@@ -10,35 +10,53 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828b3a68cbbb14abfb0feaa4fbf3a285, type: 3}
-  m_Name: Moku2Post
+  m_Name: Kayu1Post
   m_EditorClassIdentifier: 
   lines:
-  - speakerName: Moku
-    text: 'Wow! Again so fast! '
+  - speakerName: Kayu
+    text: Whoa! You're amazing!
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: I think there's just a little left.
+  - speakerName: Kayu
+    text: I need you around more
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'How are you? '
+  - speakerName: Clay
+    text: 'Anytime! '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'Or in Japanese, it''s... '
+  - speakerName: Kayu
+    text: 'If you come back again later, there''s probably more work! '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'Genki? '
+  - speakerName: Clay
+    text: 'It''s a deal. By the way... '
+    hasYesNo: 0
+    autoAdvanceDelay: 0.75
+    yesNextIndex: 0
+    noNextIndex: 0
+  - speakerName: Clay
+    text: 'Can you teach me how to say "Hello, World" in your native language? '
+    hasYesNo: 0
+    autoAdvanceDelay: 0.75
+    yesNextIndex: 0
+    noNextIndex: 0
+  - speakerName: Kayu
+    text: Of course! It's...
+    hasYesNo: 0
+    autoAdvanceDelay: 0.75
+    yesNextIndex: 0
+    noNextIndex: 0
+  - speakerName: Kayu
+    text: Helo, dunia
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0

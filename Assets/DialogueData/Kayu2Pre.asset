@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e33d03b7f0f48febb171d2b8c7fc40, type: 3}
-  m_Name: Backend Config
+  m_Script: {fileID: 11500000, guid: 828b3a68cbbb14abfb0feaa4fbf3a285, type: 3}
+  m_Name: Kayu2Pre
   m_EditorClassIdentifier: 
-  remoteBaseUrl: https://helloworld-flask-backend.onrender.com/
-  localBaseUrl: http://127.0.0.1:5000
-  timeoutSeconds: 5
+  lines:
+  - speakerName: Kayu
+    text: 'Round two? Was it that fun? '
+    hasYesNo: 1
+    autoAdvanceDelay: 0.75
+    yesNextIndex: 0
+    noNextIndex: 0

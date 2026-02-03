@@ -63,9 +63,7 @@ public class DialogueManager : MonoBehaviour
         UnityAction onAutoAdvance = null,
         UnityAction onComplete = null)
     {
-        if (dialogueActive)
-            return;
-
+        dialogueActive = true;
         dialoguePanel.SetActive(true);
         PausePlayer();
 

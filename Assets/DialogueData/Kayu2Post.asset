@@ -10,35 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828b3a68cbbb14abfb0feaa4fbf3a285, type: 3}
-  m_Name: Moku2Post
+  m_Name: Kayu2Post
   m_EditorClassIdentifier: 
   lines:
-  - speakerName: Moku
-    text: 'Wow! Again so fast! '
+  - speakerName: Kayu
+    text: 'Looking spotless already! '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: I think there's just a little left.
+  - speakerName: Kayu
+    text: 'It''s hot today, how are you? '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'How are you? '
+  - speakerName: Kayu
+    text: 'In case you''re curious, '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'Or in Japanese, it''s... '
+  - speakerName: Kayu
+    text: How are you in Malay is ...
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'Genki? '
+  - speakerName: Kayu
+    text: Apa khapar
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0

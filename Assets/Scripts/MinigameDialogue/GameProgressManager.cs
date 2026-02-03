@@ -54,7 +54,43 @@ public class GameProgressManager : MonoBehaviour
     public void MarkGreetingLearned(int neighborId)
     {
         learnedGreetingFromNeighbor.Add(neighborId);
-}
+    }
+
+    public List<MinigameSaveEntry> GetCompletedMinigamesForSave()
+    {
+        List<MinigameSaveEntry> list = new List<MinigameSaveEntry>();
+
+        foreach (string key in completedMinigames)
+        {
+            string[] parts = key.Split('_');
+            list.Add(new MinigameSaveEntry
+            {
+                neighborId = int.Parse(parts[0]),
+                minigameId = int.Parse(parts[1])
+            });
+        }
+
+        return list;
+    }
+
+    public void LoadCompletedMinigames(List<MinigameSaveEntry> list)
+    {
+        completedMinigames.Clear();
+
+        foreach (var entry in list)
+            completedMinigames.Add($"{entry.neighborId}_{entry.minigameId}");
+    }
+
+    public List<int> GetLearnedGreetingsForSave()
+    {
+        return new List<int>(learnedGreetingFromNeighbor);
+    }
+
+    public void LoadLearnedGreetings(List<int> list)
+    {
+        learnedGreetingFromNeighbor = new HashSet<int>(list);
+    }
+
 
 
 }

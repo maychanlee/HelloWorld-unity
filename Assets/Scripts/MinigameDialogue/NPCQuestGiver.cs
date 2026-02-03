@@ -22,7 +22,6 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
 
     private bool playerInRange;
     private bool questActive;
-    private bool isInteracting;
 
     // =========================
     // PLAYER INTERACTION
@@ -33,10 +32,7 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.Space))
         {
-            if (!questActive && !isInteracting)
-            {
-                Interact();
-            }
+            Interact();
         }
     }
 
@@ -47,15 +43,8 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     
     private void HandleInteraction()
     {
-        if (questActive || isInteracting) return;
-
-        isInteracting = true;
+        if (questActive) return;
         PlayPreGameDialogue();
-
-    }
-    private void OnDialogueComplete()
-    {
-        isInteracting = false;
     }
 
     // =========================
