@@ -8563,6 +8563,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 55a813d44563f4b82a4a5d53e9dd7b1f, type: 2}
   weedGameController: {fileID: 1981208650}
   dialogueManager: {fileID: 1032601925}
+  playerHunger: {fileID: 1121417369}
+  hungerRequired: 10
 --- !u!1 &1076433720
 GameObject:
   m_ObjectHideFlags: 0
@@ -31786,6 +31788,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ae48b4269517400fbe6dded28d513c9, type: 2}
   weedGameController: {fileID: 1981208650}
   dialogueManager: {fileID: 1032601925}
+  playerHunger: {fileID: 1121417369}
+  hungerRequired: 10
 --- !u!1 &1294507814
 GameObject:
   m_ObjectHideFlags: 0

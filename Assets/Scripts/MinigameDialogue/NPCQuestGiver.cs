@@ -23,6 +23,12 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     private bool playerInRange;
     private bool questActive;
 
+    [Header("Player")]
+    public PlayerHunger playerHunger;
+
+    [SerializeField] private int hungerRequired = 10;
+
+
     // =========================
     // PLAYER INTERACTION
     // =========================
@@ -44,6 +50,26 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     private void HandleInteraction()
     {
         if (questActive) return;
+
+        PlayerHunger hunger = playerHunger != null
+            ? playerHunger
+            : FindObjectOfType<PlayerHunger>();
+
+        if (hunger == null)
+        {
+            Debug.LogError("PlayerHunger not found in scene!");
+            return;
+        }
+
+        if (hunger.currentHunger < 10)
+        {
+            dialogueManager.ShowLine(
+                new DialogueLine { text = "You look hungry. Go eat something first." },
+                onAutoAdvance: () => dialogueManager.HideDialogue()
+            );
+            return;
+        }
+
         PlayPreGameDialogue();
     }
 
@@ -81,6 +107,18 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     {
         questActive = false;
 
+        PlayerHunger hunger = FindObjectOfType<PlayerHunger>();
+
+        if (hunger != null)
+        {
+            hunger.ChangeHunger(-10);
+            Debug.Log("Hunger reduced by 10 after minigame.");
+        }
+        else
+        {
+            Debug.LogError("PlayerHunger not found when minigame completed!");
+        }
+
         var data = minigames[currentMinigameIndex];
         currentMinigameIndex++;
 
@@ -89,16 +127,14 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
         if (data.postGameDialogue != null)
         {
             PlayDialogueSequence(
-                data.postGameDialogue, 
-                0, 
+                data.postGameDialogue,
+                0,
                 isPreGame: false,
-                onComplete: () =>
-                {
-                    dialogueManager.HideDialogue();
-                }
+                onComplete: () => dialogueManager.HideDialogue()
             );
         }
     }
+
 
 
     // =========================
@@ -150,4 +186,27 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
         if (other.CompareTag("Player"))
             playerInRange = false;
     }
+
+    private void PlayNotEnoughHungerDialogue()
+    {
+        var data = minigames[currentMinigameIndex];
+
+        if (data.notEnoughHungerDialogue != null)
+        {
+            PlayDialogueSequence(
+                data.notEnoughHungerDialogue,
+                0,
+                isPreGame: false,
+                onComplete: () => dialogueManager.HideDialogue()
+            );
+        }
+        else
+        {
+            dialogueManager.ShowLine(
+                new DialogueLine { text = "You look hungry. Go eat something first." },
+                onAutoAdvance: () => dialogueManager.HideDialogue()
+            );
+        }
+    }
+
 }

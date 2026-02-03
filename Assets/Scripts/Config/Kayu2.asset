@@ -16,3 +16,4 @@ MonoBehaviour:
   minigameId: 2
   preGameDialogue: {fileID: 11400000, guid: edf2ec1dfb39e4f5fb3ba68373bcdf02, type: 2}
   postGameDialogue: {fileID: 11400000, guid: 700295ddc926e4b9cabfe0405bfb8508, type: 2}
+  notEnoughHungerDialogue: {fileID: 11400000, guid: 8b52e878e472b4035b73ae2eddad6ec2, type: 2}

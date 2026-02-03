@@ -32,6 +32,7 @@ public class APISaveController : MonoBehaviour
         saveData.completedMinigames = progress.GetCompletedMinigamesForSave();
         saveData.learnedGreetings = progress.GetLearnedGreetingsForSave();
 
+
         File.WriteAllText(saveFilePath, JsonUtility.ToJson(saveData, true));
         Debug.Log("Game saved.");
     }
@@ -59,6 +60,7 @@ public class APISaveController : MonoBehaviour
         var progress = GameProgressManager.Instance;
         progress.LoadCompletedMinigames(saveData.completedMinigames);
         progress.LoadLearnedGreetings(saveData.learnedGreetings);
+
 
         Debug.Log("Game loaded.");
     }
