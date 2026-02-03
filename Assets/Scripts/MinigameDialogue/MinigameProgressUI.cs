@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class MinigameProgressUI : MonoBehaviour
 {
     public UnityEngine.UI.Image progressFill;
@@ -6,10 +7,15 @@ public class MinigameProgressUI : MonoBehaviour
 
     public void UpdateProgress()
     {
-        int completed = GameProgressManager.Instance.GetCompletedCount();
+        if (GameProgressManager.Instance == null)
+            return;
+
+        int completed = GameProgressManager.Instance.GetCompletedMinigameCount();
         int total = GameProgressManager.Instance.GetTotalMinigameCount();
 
-        progressFill.fillAmount = (float)completed / total;
+        float progress = total > 0 ? (float)completed / total : 0f;
+
+        progressFill.fillAmount = progress;
         progressText.text = $"{completed}/{total}";
     }
 }

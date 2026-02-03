@@ -8,4 +8,6 @@ public class MinigameData : ScriptableObject
 
     public DialogueSequence preGameDialogue;   // NEW
     public DialogueSequence postGameDialogue;  // NEW
+    public DialogueSequence notEnoughHungerDialogue;
+
 }

@@ -23,6 +23,12 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     private bool playerInRange;
     private bool questActive;
 
+    [Header("Player")]
+    public PlayerHunger playerHunger;
+
+    [SerializeField] private int hungerRequired = 10;
+
+
     // =========================
     // PLAYER INTERACTION
     // =========================
@@ -45,17 +51,24 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     {
         if (questActive) return;
 
-        // if (currentMinigameIndex >= minigames.Count)
-        // {
-        //     dialogueManager.ShowLine(
-        //         new DialogueLine
-        //         {
-        //             text = "Thanks again for all your help!",
-        //             speakerName = neighborName
-        //         }
-        //     );
-        //     return;
-        // }
+        PlayerHunger hunger = playerHunger != null
+            ? playerHunger
+            : FindObjectOfType<PlayerHunger>();
+
+        if (hunger == null)
+        {
+            Debug.LogError("PlayerHunger not found in scene!");
+            return;
+        }
+
+        if (hunger.currentHunger < 10)
+        {
+            dialogueManager.ShowLine(
+                new DialogueLine { text = "You look hungry. Go eat something first." },
+                onAutoAdvance: () => dialogueManager.HideDialogue()
+            );
+            return;
+        }
 
         PlayPreGameDialogue();
     }
@@ -94,6 +107,18 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     {
         questActive = false;
 
+        PlayerHunger hunger = FindObjectOfType<PlayerHunger>();
+
+        if (hunger != null)
+        {
+            hunger.ChangeHunger(-10);
+            Debug.Log("Hunger reduced by 10 after minigame.");
+        }
+        else
+        {
+            Debug.LogError("PlayerHunger not found when minigame completed!");
+        }
+
         var data = minigames[currentMinigameIndex];
         currentMinigameIndex++;
 
@@ -102,52 +127,50 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
         if (data.postGameDialogue != null)
         {
             PlayDialogueSequence(
-                data.postGameDialogue, 
-                0, 
+                data.postGameDialogue,
+                0,
                 isPreGame: false,
-                onComplete: () =>
-                {
-                    dialogueManager.HideDialogue();
-                }
+                onComplete: () => dialogueManager.HideDialogue()
             );
         }
     }
 
 
+
     // =========================
     // DIALOGUE PLAYER
     // =========================
-private void PlayDialogueSequence(
-    DialogueSequence seq,
-    int index,
-    bool isPreGame,
-    UnityAction onComplete = null)
-{
-    if (seq == null || index >= seq.lines.Count)
+    private void PlayDialogueSequence(
+        DialogueSequence seq,
+        int index,
+        bool isPreGame,
+        UnityAction onComplete = null)
     {
-        // Sequence finished
-        onComplete?.Invoke();
-        return;
+        if (seq == null || index >= seq.lines.Count)
+        {
+            // Sequence finished
+            onComplete?.Invoke();
+            return;
+        }
+
+        DialogueLine line = seq.lines[index];
+
+        dialogueManager.ShowLine(
+            line,
+            onYes: line.hasYesNo && isPreGame
+                ? () =>
+                {
+                    StartMinigame();
+                    dialogueManager.HideDialogue();
+                }
+                : null,
+            onNo: line.hasYesNo && isPreGame
+                ? () => dialogueManager.HideDialogue()
+                : null,
+            onAutoAdvance: () =>
+                PlayDialogueSequence(seq, index + 1, isPreGame, onComplete)
+        );
     }
-
-    DialogueLine line = seq.lines[index];
-
-    dialogueManager.ShowLine(
-        line,
-        onYes: line.hasYesNo && isPreGame
-            ? () =>
-            {
-                StartMinigame();
-                dialogueManager.HideDialogue();
-            }
-            : null,
-        onNo: line.hasYesNo && isPreGame
-            ? () => dialogueManager.HideDialogue()
-            : null,
-        onAutoAdvance: () =>
-            PlayDialogueSequence(seq, index + 1, isPreGame, onComplete)
-    );
-}
 
     // =========================
     // TRIGGER ZONE
@@ -163,4 +186,27 @@ private void PlayDialogueSequence(
         if (other.CompareTag("Player"))
             playerInRange = false;
     }
+
+    private void PlayNotEnoughHungerDialogue()
+    {
+        var data = minigames[currentMinigameIndex];
+
+        if (data.notEnoughHungerDialogue != null)
+        {
+            PlayDialogueSequence(
+                data.notEnoughHungerDialogue,
+                0,
+                isPreGame: false,
+                onComplete: () => dialogueManager.HideDialogue()
+            );
+        }
+        else
+        {
+            dialogueManager.ShowLine(
+                new DialogueLine { text = "You look hungry. Go eat something first." },
+                onAutoAdvance: () => dialogueManager.HideDialogue()
+            );
+        }
+    }
+
 }

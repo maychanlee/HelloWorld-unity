@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b868cdde6686402983ebc3657f2a860, type: 3}
-  m_Name: Moku1
+  m_Name: Kayu2
   m_EditorClassIdentifier: 
-  neighborId: 1
-  minigameId: 1
-  preGameDialogue: {fileID: 11400000, guid: 84d16c60187704d5bad9d27a3ac497c3, type: 2}
-  postGameDialogue: {fileID: 11400000, guid: 9c431ceb5c84a4acd9072409d56eae5a, type: 2}
-  notEnoughHungerDialogue: {fileID: 11400000, guid: e5bf905f4bdf94bd09731eb12ff8d819, type: 2}
+  neighborId: 2
+  minigameId: 2
+  preGameDialogue: {fileID: 11400000, guid: edf2ec1dfb39e4f5fb3ba68373bcdf02, type: 2}
+  postGameDialogue: {fileID: 11400000, guid: 700295ddc926e4b9cabfe0405bfb8508, type: 2}
+  notEnoughHungerDialogue: {fileID: 11400000, guid: 8b52e878e472b4035b73ae2eddad6ec2, type: 2}

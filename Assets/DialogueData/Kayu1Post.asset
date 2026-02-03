@@ -10,42 +10,54 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828b3a68cbbb14abfb0feaa4fbf3a285, type: 3}
-  m_Name: Moku1Pre
+  m_Name: Kayu1Post
   m_EditorClassIdentifier: 
   lines:
-  - speakerName: Moku
-    text: 'Hi Clay, what brings you here? '
+  - speakerName: Kayu
+    text: Whoa! You're amazing!
+    hasYesNo: 0
+    autoAdvanceDelay: 0.75
+    yesNextIndex: 0
+    noNextIndex: 0
+  - speakerName: Kayu
+    text: I need you around more
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
   - speakerName: Clay
-    text: 'My mom said I should get out of the house more. '
+    text: 'Anytime! '
+    hasYesNo: 0
+    autoAdvanceDelay: 0.75
+    yesNextIndex: 0
+    noNextIndex: 0
+  - speakerName: Kayu
+    text: 'If you come back again later, there''s probably more work! '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
   - speakerName: Clay
-    text: 'Do you have anything you might need help with? '
+    text: 'It''s a deal. By the way... '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'My backyard is covered in weed now '
+  - speakerName: Clay
+    text: 'Can you teach me how to say "Hello, World" in your native language? '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'and I was going to spend some time mowing it. '
+  - speakerName: Kayu
+    text: Of course! It's...
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'Would you like to help me with that? '
-    hasYesNo: 1
+  - speakerName: Kayu
+    text: Helo, dunia
+    hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0

@@ -10,42 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828b3a68cbbb14abfb0feaa4fbf3a285, type: 3}
-  m_Name: Moku1Pre
+  m_Name: Kayu3Post
   m_EditorClassIdentifier: 
   lines:
-  - speakerName: Moku
-    text: 'Hi Clay, what brings you here? '
+  - speakerName: Kayu
+    text: You're amazing! You saved me a lot of time.
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Clay
-    text: 'My mom said I should get out of the house more. '
+  - speakerName: Kayu
+    text: 'I really appreciate you! Thank you! '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Clay
-    text: 'Do you have anything you might need help with? '
+  - speakerName: Kayu
+    text: 'Or... '
     hasYesNo: 0
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
-  - speakerName: Moku
-    text: 'My backyard is covered in weed now '
+  - speakerName: Kayu
+    text: Terima kasih
     hasYesNo: 0
-    autoAdvanceDelay: 0.75
-    yesNextIndex: 0
-    noNextIndex: 0
-  - speakerName: Moku
-    text: 'and I was going to spend some time mowing it. '
-    hasYesNo: 0
-    autoAdvanceDelay: 0.75
-    yesNextIndex: 0
-    noNextIndex: 0
-  - speakerName: Moku
-    text: 'Would you like to help me with that? '
-    hasYesNo: 1
     autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0

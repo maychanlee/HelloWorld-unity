@@ -16,42 +16,48 @@ MonoBehaviour:
   - speakerName: Moku
     text: 'Wow! Thanks for helping out! '
     hasYesNo: 0
-    autoAdvanceDelay: 1.2
+    autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
   - speakerName: Clay
     text: That was fun!
     hasYesNo: 0
-    autoAdvanceDelay: 1.2
+    autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
   - speakerName: Moku
     text: 'Take a break now! '
     hasYesNo: 0
-    autoAdvanceDelay: 1.2
+    autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
   - speakerName: Moku
     text: 'There''s more if you want to come back again and help! '
     hasYesNo: 0
-    autoAdvanceDelay: 1.2
+    autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
   - speakerName: Clay
-    text: 'Hey Mr. Moku.... '
+    text: 'Hey Moku.... '
     hasYesNo: 0
-    autoAdvanceDelay: 1.2
+    autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
   - speakerName: Clay
     text: 'Can you teach me how to say "Hello, World" in your native language? '
     hasYesNo: 0
-    autoAdvanceDelay: 1.2
+    autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0
   - speakerName: Moku
-    text: Sure! It's "Konnichiwa, sekai"
+    text: Sure! It's...
     hasYesNo: 0
-    autoAdvanceDelay: 1.2
+    autoAdvanceDelay: 0.75
+    yesNextIndex: 0
+    noNextIndex: 0
+  - speakerName: Moku
+    text: Konnichiwa, sekai
+    hasYesNo: 0
+    autoAdvanceDelay: 0.75
     yesNextIndex: 0
     noNextIndex: 0

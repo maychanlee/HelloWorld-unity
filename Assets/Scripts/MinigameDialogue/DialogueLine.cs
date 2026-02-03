@@ -12,7 +12,7 @@ public class DialogueLine
     public bool hasYesNo;
 
     [Tooltip("Seconds to wait before auto-advancing (non-choice lines)")]
-    public float autoAdvanceDelay = 1.2f;
+    public float autoAdvanceDelay = 2f;
 
     public int yesNextIndex = -1;
     public int noNextIndex = -1;

@@ -243,7 +243,12 @@ public class WeedGameController : MonoBehaviour
             Debug.Log("Player teleported back to neighbor's house");
         }
 
-        GameProgressManager.Instance.MarkMinigameComplete(currentKey);
+        GameProgressManager.Instance.MarkMinigameComplete(
+            currentKey,
+            gameTimer,
+            GetFormattedTime()
+        );
+
 
         // Trigger reward sequence
         onGameComplete?.Invoke();
