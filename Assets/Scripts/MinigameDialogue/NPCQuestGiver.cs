@@ -28,12 +28,15 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
 
     [SerializeField] private int hungerRequired = 10;
 
+    [Header("No Minigame Dialogue")]
+    public DialogueSequence noMinigameDialogue; // Dialogue when all minigames are done
+
+    private bool allMinigamesCompleted => currentMinigameIndex >= minigames.Count;
+
 
     // =========================
     // PLAYER INTERACTION
     // =========================
-
-    
     private void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.Space))
@@ -46,30 +49,29 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     {
         HandleInteraction();
     }
-    
+
     private void HandleInteraction()
     {
         if (questActive) return;
+
+        // If all minigames are completed, always play noMinigame dialogue
+        if (allMinigamesCompleted)
+        {
+            PlayNoMinigameDialogue();
+            return;
+        }
 
         PlayerHunger hunger = playerHunger != null
             ? playerHunger
             : FindObjectOfType<PlayerHunger>();
 
-        if (hunger == null)
+        if (hunger.currentHunger < hungerRequired)
         {
-            Debug.LogError("PlayerHunger not found in scene!");
+            PlayNotEnoughHungerDialogue();
             return;
         }
 
-        if (hunger.currentHunger < 10)
-        {
-            dialogueManager.ShowLine(
-                new DialogueLine { text = "You look hungry. Go eat something first." },
-                onAutoAdvance: () => dialogueManager.HideDialogue()
-            );
-            return;
-        }
-
+        // Only play pre-game dialogue if there are minigames left
         PlayPreGameDialogue();
     }
 
@@ -78,8 +80,24 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     // =========================
     private void PlayPreGameDialogue()
     {
+        if (allMinigamesCompleted)
+        {
+            PlayNoMinigameDialogue();
+            return;
+        }
+
         var data = minigames[currentMinigameIndex];
-        PlayDialogueSequence(data.preGameDialogue, 0, isPreGame: true);
+
+        bool hasChoice = data.preGameDialogue.lines.Exists(l => l.hasYesNo);
+
+        PlayDialogueSequence(
+            data.preGameDialogue,
+            0,
+            isPreGame: true,
+            onComplete: hasChoice
+                ? null
+                : () => dialogueManager.HideDialogue()
+        );
     }
 
     // =========================
@@ -87,6 +105,8 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     // =========================
     private void StartMinigame()
     {
+        if (allMinigamesCompleted) return;
+
         questActive = true;
 
         var data = minigames[currentMinigameIndex];
@@ -111,8 +131,8 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
 
         if (hunger != null)
         {
-            hunger.ChangeHunger(-10);
-            Debug.Log("Hunger reduced by 10 after minigame.");
+            hunger.ChangeHunger(-hungerRequired);
+            Debug.Log($"Hunger reduced by {hungerRequired} after minigame.");
         }
         else
         {
@@ -135,8 +155,6 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
         }
     }
 
-
-
     // =========================
     // DIALOGUE PLAYER
     // =========================
@@ -148,7 +166,6 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     {
         if (seq == null || index >= seq.lines.Count)
         {
-            // Sequence finished
             onComplete?.Invoke();
             return;
         }
@@ -189,6 +206,12 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
 
     private void PlayNotEnoughHungerDialogue()
     {
+        if (allMinigamesCompleted)
+        {
+            PlayNoMinigameDialogue();
+            return;
+        }
+
         var data = minigames[currentMinigameIndex];
 
         if (data.notEnoughHungerDialogue != null)
@@ -209,4 +232,26 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
         }
     }
 
+    // =========================
+    // NO MINIGAME DIALOGUE
+    // =========================
+    private void PlayNoMinigameDialogue()
+    {
+        if (noMinigameDialogue != null)
+        {
+            PlayDialogueSequence(
+                noMinigameDialogue,
+                0,
+                isPreGame: false,
+                onComplete: () => dialogueManager.HideDialogue()
+            );
+        }
+        else
+        {
+            dialogueManager.ShowLine(
+                new DialogueLine { text = "I don't have any tasks for you right now." },
+                onAutoAdvance: () => dialogueManager.HideDialogue()
+            );
+        }
+    }
 }

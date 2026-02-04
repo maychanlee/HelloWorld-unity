@@ -6,10 +6,11 @@ using UnityEngine;
 public class MinigameSaveEntry
 {
     public int neighborId;
+    public string neighborName;
     public int minigameId;
-
-    public float completionTime;     // raw seconds
-    public string formattedTime;      // for UI
+    public string phrase;
+    public float completionTime;
+    internal MinigameData minigameData;
 }
 
 
@@ -21,9 +22,8 @@ public class SaveData
     public int hungerLevel;
 
     // World
-    public string mapBoundaryName;
+    public string mapBoundary;
 
     // Progression
     public List<MinigameSaveEntry> completedMinigames = new List<MinigameSaveEntry>();
-    public List<int> learnedGreetings = new List<int>();
 }

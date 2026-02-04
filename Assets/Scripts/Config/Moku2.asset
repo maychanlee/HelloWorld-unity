@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Moku2
   m_EditorClassIdentifier: 
   neighborId: 1
+  neighborName: Moku
   minigameId: 2
+  completionPhrase: genki
   preGameDialogue: {fileID: 11400000, guid: fc8cb7dde18a94062821e3133004ffda, type: 2}
   postGameDialogue: {fileID: 11400000, guid: 6b750fc84288f423588ba24fb7499838, type: 2}
   notEnoughHungerDialogue: {fileID: 11400000, guid: e5bf905f4bdf94bd09731eb12ff8d819, type: 2}

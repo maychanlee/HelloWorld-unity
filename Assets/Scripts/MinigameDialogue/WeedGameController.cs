@@ -85,16 +85,16 @@ public class WeedGameController : MonoBehaviour
         Debug.Log($"Starting Weed Game: {currentKey}");
         isComplete = false;
 
+        TeleportPlayerToGameStart();
+        confiner.m_BoundingShape2D = mapBoundary;
 
         // Store original player speed
         if (playerMovement != null)
         {
             originalPlayerSpeed = playerMovement.moveSpeed;
             playerMovement.moveSpeed = gameplayMovementSpeed;
+            Debug.Log($"[Minigame Set] instanceID={playerMovement.GetInstanceID()}, speed={playerMovement.moveSpeed}");
         }
-
-        TeleportPlayerToGameStart();
-        confiner.m_BoundingShape2D = mapBoundary;
 
         GenerateWeedGrid();
 
@@ -103,6 +103,7 @@ public class WeedGameController : MonoBehaviour
         remainingWeeds = totalWeeds;
 
         UpdateUI();
+
     }
 
     
@@ -187,6 +188,7 @@ public class WeedGameController : MonoBehaviour
         if (isGameActive)
         {
             gameTimer += Time.deltaTime;
+            playerMovement.moveSpeed = gameplayMovementSpeed;
             UpdateUI();
         }
     }
@@ -218,7 +220,6 @@ public class WeedGameController : MonoBehaviour
         int milliseconds = Mathf.FloorToInt((gameTimer * 100f) % 100f);
         
         Debug.Log($"WEED GAME COMPLETED! Time: {minutes:00}:{seconds:00}.{milliseconds:00}");
-        Debug.Log($"COMPLETED {currentKey} in {GetFormattedTime()}");
 
         
         // Restore original player speed
@@ -245,8 +246,7 @@ public class WeedGameController : MonoBehaviour
 
         GameProgressManager.Instance.MarkMinigameComplete(
             currentKey,
-            gameTimer,
-            GetFormattedTime()
+            gameTimer
         );
 
 
@@ -271,11 +271,11 @@ public class WeedGameController : MonoBehaviour
     }
     
     // Public method to format time as string
-    public string GetFormattedTime()
-    {
-        int minutes = Mathf.FloorToInt(gameTimer / 60f);
-        int seconds = Mathf.FloorToInt(gameTimer % 60f);
-        int milliseconds = Mathf.FloorToInt((gameTimer * 100f) % 100f);
-        return $"{minutes:00}:{seconds:00}.{milliseconds:00}";
-    }
+    // public string GetFormattedTime()
+    // {
+    //     int minutes = Mathf.FloorToInt(gameTimer / 60f);
+    //     int seconds = Mathf.FloorToInt(gameTimer % 60f);
+    //     int milliseconds = Mathf.FloorToInt((gameTimer * 100f) % 100f);
+    //     return $"{minutes:00}:{seconds:00}.{milliseconds:00}";
+    // }
 }

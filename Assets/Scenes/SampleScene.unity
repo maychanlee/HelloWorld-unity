@@ -3234,6 +3234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd188fa696e2449dab93894e333cd493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backendConfig: {fileID: 11400000, guid: aa3edd28e75a04e4a9480fbca77299ca, type: 2}
+  saveFileName: saveData.json
 --- !u!1 &621073811
 GameObject:
   m_ObjectHideFlags: 0
@@ -8565,6 +8567,7 @@ MonoBehaviour:
   dialogueManager: {fileID: 1032601925}
   playerHunger: {fileID: 1121417369}
   hungerRequired: 10
+  noMinigameDialogue: {fileID: 11400000, guid: 63c15876603454543a7e96f15bc340f6, type: 2}
 --- !u!1 &1076433720
 GameObject:
   m_ObjectHideFlags: 0
@@ -31790,6 +31793,7 @@ MonoBehaviour:
   dialogueManager: {fileID: 1032601925}
   playerHunger: {fileID: 1121417369}
   hungerRequired: 10
+  noMinigameDialogue: {fileID: 11400000, guid: c76c0b5f5d8c847deabc5ed54cf91da7, type: 2}
 --- !u!1 &1294507814
 GameObject:
   m_ObjectHideFlags: 0
@@ -33448,6 +33452,7 @@ GameObject:
   - component: {fileID: 1949454726}
   - component: {fileID: 1949454729}
   - component: {fileID: 1949454728}
+  - component: {fileID: 1949454730}
   m_Layer: 0
   m_Name: Sorbear
   m_TagString: Untagged
@@ -33605,6 +33610,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1949454730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949454724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c70890992123c402180da02ed4b5bf20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neighborId: 0
+  neighborName: Sorbear
+  returnMapBoundary: {fileID: 1703362778}
+  neighborHousePosition: {fileID: 905102962}
+  minigames:
+  - {fileID: 11400000, guid: 747c7b13fb4c24b55bef56851c2220e6, type: 2}
+  weedGameController: {fileID: 1981208650}
+  dialogueManager: {fileID: 1032601925}
+  playerHunger: {fileID: 1121417369}
+  hungerRequired: 10
+  noMinigameDialogue: {fileID: 0}
 --- !u!1 &1959076709
 GameObject:
   m_ObjectHideFlags: 0
@@ -33735,7 +33763,7 @@ MonoBehaviour:
   isComplete: 0
   weedPrefab: {fileID: 6238532741026791107, guid: bd548fce863164d86a617e5d1b3c3188, type: 3}
   player: {fileID: 1121417362}
-  gameplayMovementSpeed: 80
+  gameplayMovementSpeed: 8
   playerStartPosition: {fileID: 2020268383}
   mapBoundary: {fileID: 149069091}
   returnMapBoundary: {fileID: 148456956}

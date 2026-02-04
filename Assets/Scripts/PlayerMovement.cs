@@ -39,5 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Move smoothly
         transform.Translate(input * moveSpeed * Time.deltaTime);
+
+        //Debug Log
+        Debug.Log($"[PlayerMovement Update] instanceID={GetInstanceID()}, speed={moveSpeed}");
     }
 }

@@ -4,10 +4,12 @@ using UnityEngine;
 public class MinigameData : ScriptableObject
 {
     public int neighborId;
+    public string neighborName;
     public int minigameId;
+    public string completionPhrase;
 
-    public DialogueSequence preGameDialogue;   // NEW
-    public DialogueSequence postGameDialogue;  // NEW
+    public DialogueSequence preGameDialogue;
+    public DialogueSequence postGameDialogue;
     public DialogueSequence notEnoughHungerDialogue;
 
 }

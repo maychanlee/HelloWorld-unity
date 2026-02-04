@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b868cdde6686402983ebc3657f2a860, type: 3}
-  m_Name: Moku3
+  m_Name: Sorbear
   m_EditorClassIdentifier: 
-  neighborId: 1
-  neighborName: Moku
-  minigameId: 3
-  completionPhrase: arigatou
-  preGameDialogue: {fileID: 11400000, guid: 9b6304f69e1654709aa821236d0715e8, type: 2}
-  postGameDialogue: {fileID: 11400000, guid: 35911c2aac22049ccac1a07c9a044799, type: 2}
-  notEnoughHungerDialogue: {fileID: 11400000, guid: e5bf905f4bdf94bd09731eb12ff8d819, type: 2}
+  neighborId: 0
+  minigameId: 0
+  preGameDialogue: {fileID: 11400000, guid: 344927435f3ee4d99982cc0e58829bd9, type: 2}
+  postGameDialogue: {fileID: 11400000, guid: 344927435f3ee4d99982cc0e58829bd9, type: 2}
+  notEnoughHungerDialogue: {fileID: 11400000, guid: 344927435f3ee4d99982cc0e58829bd9, type: 2}

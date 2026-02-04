@@ -7,7 +7,6 @@ public class GameProgressManager : MonoBehaviour
     private Dictionary<string, MinigameSaveEntry> completedMinigames =
         new Dictionary<string, MinigameSaveEntry>();
 
-    private HashSet<int> learnedGreetingFromNeighbor = new HashSet<int>();
 
     private void Awake()
     {
@@ -22,8 +21,8 @@ public class GameProgressManager : MonoBehaviour
 
     public void MarkMinigameComplete(
         MinigameKey key,
-        float completionTime,
-        string formattedTime)
+        float completionTime
+        )
     {
         string dictKey = GetKey(key.neighborId, key.minigameId);
 
@@ -32,10 +31,7 @@ public class GameProgressManager : MonoBehaviour
             neighborId = key.neighborId,
             minigameId = key.minigameId,
             completionTime = completionTime,
-            formattedTime = formattedTime
         };
-
-        Debug.Log($"Marked complete: {dictKey} in {formattedTime}");
     }
 
     public bool IsMinigameComplete(int neighborId, int minigameId)
@@ -68,16 +64,6 @@ public class GameProgressManager : MonoBehaviour
         }
     }
 
-    public List<int> GetLearnedGreetingsForSave()
-    {
-        return new List<int>(learnedGreetingFromNeighbor);
-    }
-
-    public void LoadLearnedGreetings(List<int> list)
-    {
-        learnedGreetingFromNeighbor = new HashSet<int>(list);
-    }
-
     public int GetCompletedMinigameCount()
     {
         return completedMinigames.Count;
@@ -90,8 +76,6 @@ public class GameProgressManager : MonoBehaviour
     // }
     public int GetTotalMinigameCount()
     {
-        // TEMP: hardcoded
-        // Better: calculate from data later
         return 6; // 2 neighbors x 3 minigames
     }
 

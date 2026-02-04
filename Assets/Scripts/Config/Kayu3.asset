@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Kayu3
   m_EditorClassIdentifier: 
   neighborId: 2
+  neighborName: Kayu
   minigameId: 3
+  completionPhrase: terima kasih
   preGameDialogue: {fileID: 11400000, guid: a9cae49ae66b845a2a65bd3c681f46c8, type: 2}
   postGameDialogue: {fileID: 11400000, guid: 8d24cfedc4c6546ea943a375269e99cf, type: 2}
   notEnoughHungerDialogue: {fileID: 11400000, guid: 8b52e878e472b4035b73ae2eddad6ec2, type: 2}
