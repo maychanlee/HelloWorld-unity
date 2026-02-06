@@ -11,25 +11,29 @@ public class GameProgressManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
+        {
             Destroy(gameObject);
+        }
     }
 
     private string GetKey(int neighborId, int minigameId)
         => $"{neighborId}_{minigameId}";
 
-    public void MarkMinigameComplete(
-        MinigameKey key,
-        float completionTime
-        )
+    public void MarkMinigameComplete(MinigameData data, float completionTime)
     {
-        string dictKey = GetKey(key.neighborId, key.minigameId);
+        string dictKey = GetKey(data.neighborId, data.minigameId);
 
         completedMinigames[dictKey] = new MinigameSaveEntry
         {
-            neighborId = key.neighborId,
-            minigameId = key.minigameId,
+            neighborId = data.neighborId,
+            minigameId = data.minigameId,
+            neighborName = data.neighborName,
+            completionPhrase = data.completionPhrase,
             completionTime = completionTime,
         };
     }
@@ -69,14 +73,23 @@ public class GameProgressManager : MonoBehaviour
         return completedMinigames.Count;
     }
 
-    // public int GetTotalMinigameCount()
-    // {
-    //     return FindObjectsOfType<NPCQuestGiver>()
-    //         .Sum(npc => npc.minigames.Count);
-    // }
     public int GetTotalMinigameCount()
     {
-        return 6; // 2 neighbors x 3 minigames
+        int total = 0;
+        foreach (var npc in FindObjectsOfType<NPCQuestGiver>())
+            total += npc.minigames.Count;
+
+        return total;
     }
+    public bool IsMinigameComplete(MinigameData data)
+    {
+        return IsMinigameComplete(data.neighborId, data.minigameId);
+    }
+
+    public MinigameSaveEntry GetMinigameResult(MinigameData data)
+    {
+        return GetMinigameResult(data.neighborId, data.minigameId);
+    }
+
 
 }

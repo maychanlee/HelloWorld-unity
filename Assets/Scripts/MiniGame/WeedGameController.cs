@@ -6,18 +6,11 @@ using Cinemachine;
 
 public class WeedGameController : MonoBehaviour
 {
-    [Header("Grid Settings")]
-    [SerializeField] private int gridWidth = 12;
-    [SerializeField] private int gridHeight = 11;
-    [SerializeField] private float cellSize = 1f;
-    [SerializeField] private Vector2 gridOffset = Vector2.zero;
-    [SerializeField] private bool useManualStartPos = false;
-    [SerializeField] private Vector2 manualStartPos = Vector2.zero;
+    [Header("Config")]
+    [SerializeField] private WeedGameConfig config;
     
     [Header("Minigame Identity")]
-    [SerializeField] private int neighborId;
-    [SerializeField] private int minigameId;
-    private MinigameKey currentKey;
+    [SerializeField] private MinigameData currentMinigame;
 
     [Header("Completion State")]
     [SerializeField] private bool isComplete = false;
@@ -26,13 +19,15 @@ public class WeedGameController : MonoBehaviour
 
     [Header("Weed Settings")]
     [SerializeField] private GameObject weedPrefab;
-    private int totalWeeds; // 12 x 11 = 132
+    private int totalWeeds;
     private int remainingWeeds;
+    private List<GameObject> weedList = new List<GameObject>();
     
     [Header("Player Settings")]
     [SerializeField] private GameObject player;
-    [SerializeField] private float gameplayMovementSpeed = 8f;
-    [SerializeField] private Transform playerStartPosition; // Center of the grid
+    private PlayerMovement playerMovement;
+    private float originalPlayerSpeed;
+    [SerializeField] private Transform playerStartPosition; 
     
     [Header("Timer")]
     private float gameTimer = 0f;
@@ -45,20 +40,18 @@ public class WeedGameController : MonoBehaviour
     public Transform neighborHousePosition;
     public UnityEvent onGameComplete;
     
-    [Header("UI References (Optional)")]
+    [Header("UI References")]
     [SerializeField] private TMPro.TextMeshProUGUI timerText;
     [SerializeField] private TMPro.TextMeshProUGUI weedCountText;
     
-    private PlayerMovement playerMovement; // Reference to player movement script
-    private float originalPlayerSpeed; // Store original speed to restore later
-    private List<GameObject> weedList = new List<GameObject>();
     
     private void Awake()
     {
-        // Initialize totalWeeds based on grid dimensions
-        totalWeeds = gridWidth * gridHeight;
-        remainingWeeds = totalWeeds;
+        // totalWeeds = config.gridWidth * config.gridHeight;
+        // remainingWeeds = totalWeeds;
+
         confiner = FindObjectOfType<CinemachineConfiner>();
+
         // Get player movement component
         if (player != null)
         {
@@ -66,35 +59,35 @@ public class WeedGameController : MonoBehaviour
         }
     }
     
-    // Call this method when the player accepts the quest
-    public void StartWeedGame(int neighborId, int minigameId)
+    public void StartWeedGame(MinigameData minigameData)
     {
-        Debug.Log($"Starting Weed Game: Neighbor {neighborId} - Minigame {minigameId}");
+        if (minigameData == null)
+        {
+            Debug.LogError("MinigameData is NULL");
+            return;
+        }
+        if (minigameData.weedConfig == null)
+        {
+            Debug.LogError($"WeedGameConfig missing on {minigameData.name}");
+            return;
+        }
 
-        if (player == null) Debug.LogError("Player is NULL");
-        if (weedPrefab == null) Debug.LogError("Weed Prefab is NULL");
-        if (playerStartPosition == null) Debug.LogError("Player Start Position is NULL");
-        if (mapBoundary == null) Debug.LogError("Map Boundary is NULL");
-        if (confiner == null) Debug.LogError("Cinemachine Confiner is NULL");
-        
-        this.neighborId = neighborId;
-        this.minigameId = minigameId;
+        currentMinigame = minigameData;
+        config = minigameData.weedConfig;
 
-        currentKey = new MinigameKey(neighborId, minigameId);
+        ApplyConfig();
 
-        Debug.Log($"Starting Weed Game: {currentKey}");
         isComplete = false;
 
-        TeleportPlayerToGameStart();
-        confiner.m_BoundingShape2D = mapBoundary;
-
-        // Store original player speed
+        // Set player speed for the game
         if (playerMovement != null)
         {
             originalPlayerSpeed = playerMovement.moveSpeed;
-            playerMovement.moveSpeed = gameplayMovementSpeed;
-            Debug.Log($"[Minigame Set] instanceID={playerMovement.GetInstanceID()}, speed={playerMovement.moveSpeed}");
+            playerMovement.moveSpeed = config.gameplayMovementSpeed;
         }
+
+        TeleportPlayerToGameStart();
+        confiner.m_BoundingShape2D = mapBoundary;
 
         GenerateWeedGrid();
 
@@ -103,13 +96,16 @@ public class WeedGameController : MonoBehaviour
         remainingWeeds = totalWeeds;
 
         UpdateUI();
-
     }
 
+    private void ApplyConfig()
+    {
+        totalWeeds = config.gridWidth * config.gridHeight;
+    }
     
     private void GenerateWeedGrid()
     {
-        // Clear any existing weeds
+        // Remove existing weeds if any
         foreach (GameObject weed in weedList)
         {
             if (weed != null)
@@ -118,50 +114,50 @@ public class WeedGameController : MonoBehaviour
             }
         }
         weedList.Clear();
-        
-        // Calculate starting position (bottom-left corner)
-        Vector2 startPos;
-        
-        if (useManualStartPos)
+        // Validate player start position
+        if (playerStartPosition == null)
         {
-            // Use manually specified start position
-            startPos = manualStartPos;
+            Debug.LogError("Player start position not set!");
+            return;
         }
-        else
+
+        // Calculate center of the grid based on player start position
+        Vector2 center = playerStartPosition.position;
+        float gridWorldWidth  = config.gridWidth * config.cellSize;
+        float gridWorldHeight = config.gridHeight * config.cellSize;
+        // Calculate bottom-left corner of the grid
+        Vector2 bottomLeft = center - new Vector2(gridWorldWidth / 2f, gridWorldHeight / 2f);
+
+        for (int x = 0; x < config.gridWidth; x++)
         {
-            // Calculate from grid offset (centered)
-            startPos = gridOffset - new Vector2((gridWidth * cellSize) / 2f, (gridHeight * cellSize) / 2f);
-        }
-        
-        // Generate grid
-        for (int x = 0; x < gridWidth; x++)
-        {
-            for (int y = 0; y < gridHeight; y++)
+            for (int y = 0; y < config.gridHeight; y++)
             {
-                Vector2 spawnPosition = startPos + new Vector2(x * cellSize + cellSize / 2f, y * cellSize + cellSize / 2f);
-                GameObject weed = Instantiate(weedPrefab, spawnPosition, Quaternion.identity);
-                weed.transform.SetParent(transform); // Organize under this manager
-                
-                // Set up the weed to notify this manager when destroyed
+                Vector2 spawnPosition = bottomLeft
+                    + new Vector2(
+                        x * config.cellSize + config.cellSize / 2f,
+                        y * config.cellSize + config.cellSize / 2f
+                    );
+
+                GameObject weed = Instantiate(weedPrefab, spawnPosition, Quaternion.identity, transform);
+
                 Weed weedScript = weed.GetComponent<Weed>();
                 if (weedScript != null)
-                {
                     weedScript.SetManager(this);
-                }
-                
+
                 weedList.Add(weed);
             }
         }
-        
-        Debug.Log($"Generated {weedList.Count} weeds in a {gridWidth}x{gridHeight} grid starting at {startPos}");
+
+        Debug.Log(
+            $"Generated {weedList.Count} weeds centered at {center} " +
+            $"({config.gridWidth}x{config.gridHeight})"
+        );
     }
-    
     
     private void TeleportPlayerToGameStart()
     {
         if (player != null)
         {
-            // Calculate center position
             player.transform.position = playerStartPosition.position;
         }
     }
@@ -188,7 +184,7 @@ public class WeedGameController : MonoBehaviour
         if (isGameActive)
         {
             gameTimer += Time.deltaTime;
-            playerMovement.moveSpeed = gameplayMovementSpeed;
+            playerMovement.moveSpeed = config.gameplayMovementSpeed;
             UpdateUI();
         }
     }
@@ -245,7 +241,7 @@ public class WeedGameController : MonoBehaviour
         }
 
         GameProgressManager.Instance.MarkMinigameComplete(
-            currentKey,
+            currentMinigame,
             gameTimer
         );
 
@@ -269,13 +265,4 @@ public class WeedGameController : MonoBehaviour
     {
         return gameTimer;
     }
-    
-    // Public method to format time as string
-    // public string GetFormattedTime()
-    // {
-    //     int minutes = Mathf.FloorToInt(gameTimer / 60f);
-    //     int seconds = Mathf.FloorToInt(gameTimer % 60f);
-    //     int milliseconds = Mathf.FloorToInt((gameTimer * 100f) % 100f);
-    //     return $"{minutes:00}:{seconds:00}.{milliseconds:00}";
-    // }
 }

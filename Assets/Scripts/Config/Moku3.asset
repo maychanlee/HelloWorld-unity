@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Moku3
   m_EditorClassIdentifier: 
   neighborId: 1
-  neighborName: Moku
   minigameId: 3
+  neighborName: Moku
   completionPhrase: arigatou
+  weedConfig: {fileID: 11400000, guid: 4737874a2fc244c7da371ebc857f96da, type: 2}
   preGameDialogue: {fileID: 11400000, guid: 9b6304f69e1654709aa821236d0715e8, type: 2}
   postGameDialogue: {fileID: 11400000, guid: 35911c2aac22049ccac1a07c9a044799, type: 2}
   notEnoughHungerDialogue: {fileID: 11400000, guid: e5bf905f4bdf94bd09731eb12ff8d819, type: 2}

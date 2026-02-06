@@ -19,6 +19,7 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     [Header("Systems")]
     public WeedGameController weedGameController;
     public DialogueManager dialogueManager;
+    [SerializeField] private MinigameData currentMinigame;
 
     private bool playerInRange;
     private bool questActive;
@@ -102,14 +103,33 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
 
     // =========================
     // MINIGAME START
-    // =========================
-    private void StartMinigame()
+        // =========================
+    public void StartMinigame()
     {
-        if (allMinigamesCompleted) return;
+        if (questActive)
+            return;
 
-        questActive = true;
+        if (allMinigamesCompleted)
+        {
+            PlayNoMinigameDialogue();
+            return;
+        }
 
         var data = minigames[currentMinigameIndex];
+
+        if (weedGameController == null)
+        {
+            Debug.LogError($"{name}: WeedGameController not assigned.");
+            return;
+        }
+
+        if (data == null)
+        {
+            Debug.LogError($"{name}: MinigameData missing at index {currentMinigameIndex}");
+            return;
+        }
+
+        questActive = true;
 
         weedGameController.returnMapBoundary = returnMapBoundary;
         weedGameController.neighborHousePosition = neighborHousePosition;
@@ -117,8 +137,10 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
         weedGameController.onGameComplete.RemoveAllListeners();
         weedGameController.onGameComplete.AddListener(OnMinigameCompleted);
 
-        weedGameController.StartWeedGame(data.neighborId, data.minigameId);
+        weedGameController.StartWeedGame(data);
     }
+
+
 
     // =========================
     // POST-GAME

@@ -8,7 +8,7 @@ public class MinigameSaveEntry
     public int neighborId;
     public string neighborName;
     public int minigameId;
-    public string phrase;
+    public string completionPhrase;
     public float completionTime;
     internal MinigameData minigameData;
 }
