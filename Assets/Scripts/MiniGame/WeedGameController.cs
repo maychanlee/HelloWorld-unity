@@ -43,13 +43,13 @@ public class WeedGameController : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TMPro.TextMeshProUGUI timerText;
     [SerializeField] private TMPro.TextMeshProUGUI weedCountText;
+    [SerializeField] private GameObject uiPanel;
+    [SerializeField] private GameObject hungerSlider;
+    [SerializeField] private GameObject progressSlider;
     
     
     private void Awake()
     {
-        // totalWeeds = config.gridWidth * config.gridHeight;
-        // remainingWeeds = totalWeeds;
-
         confiner = FindObjectOfType<CinemachineConfiner>();
 
         // Get player movement component
@@ -57,6 +57,18 @@ public class WeedGameController : MonoBehaviour
         {
             playerMovement = player.GetComponent<PlayerMovement>();
         }
+
+        // Hide the game UI initially
+        if (uiPanel != null)
+            uiPanel.SetActive(false);
+
+        // Show hunger slider initially
+        if (hungerSlider != null)
+            hungerSlider.SetActive(true);
+
+        // Show progress slider initially
+        if (progressSlider != null)
+            progressSlider.SetActive(true);
     }
     
     public void StartWeedGame(MinigameData minigameData)
@@ -94,6 +106,18 @@ public class WeedGameController : MonoBehaviour
         isGameActive = true;
         gameTimer = 0f;
         remainingWeeds = totalWeeds;
+
+        // Show game UI
+        if (uiPanel != null)
+            uiPanel.SetActive(true);
+
+        // Hide hunger slider
+        if (hungerSlider != null)
+            hungerSlider.SetActive(false);
+
+        // Hide progress slider
+        if (progressSlider != null)
+            progressSlider.SetActive(false);
 
         UpdateUI();
     }
@@ -224,6 +248,18 @@ public class WeedGameController : MonoBehaviour
             playerMovement.moveSpeed = originalPlayerSpeed;
         }
         
+            // Hide game UI
+        if (uiPanel != null)
+            uiPanel.SetActive(false);
+
+        // Show hunger slider again
+        if (hungerSlider != null)
+            hungerSlider.SetActive(true);
+
+        // Show progress slider again
+        if (progressSlider != null)
+            progressSlider.SetActive(true);
+
         // Teleport player back to neighbor's house
         StartCoroutine(CompleteGameSequence());
     }

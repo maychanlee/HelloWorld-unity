@@ -1,18 +1,14 @@
 using UnityEngine;
 
-public class GameSession : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public static GameSession Instance;
-
-    public int playerId;
-    public int slotId;
-    public SaveData currentSave;
+    public static PlayerController Instance;
 
     private void Awake()
     {
         if (Instance != null)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // prevents duplicates
             return;
         }
 

@@ -75,12 +75,22 @@ public class GameProgressManager : MonoBehaviour
 
     public int GetTotalMinigameCount()
     {
-        int total = 0;
+        HashSet<string> uniqueMinigames = new HashSet<string>();
+
         foreach (var npc in FindObjectsOfType<NPCQuestGiver>())
-            total += npc.minigames.Count;
+        {
+            foreach (var mg in npc.minigames)
+            {
+                string key = GetKey(mg.neighborId, mg.minigameId);
+                uniqueMinigames.Add(key);
+            }
+        }
+        //Don't count Sorbear's Dialogue
+        int total = uniqueMinigames.Count - 1;
 
         return total;
     }
+
     public bool IsMinigameComplete(MinigameData data)
     {
         return IsMinigameComplete(data.neighborId, data.minigameId);

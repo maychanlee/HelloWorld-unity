@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neighborId: 1
   minigameId: 1
-  neighborName: Moku
-  completionPhrase: konnichiwa sekai
+  neighborName: MOKU
+  completionPhrase: KONNICHIWA SEKAI
   weedConfig: {fileID: 11400000, guid: 5203b2a341dd7457fbd496044edbafa7, type: 2}
   preGameDialogue: {fileID: 11400000, guid: 84d16c60187704d5bad9d27a3ac497c3, type: 2}
   postGameDialogue: {fileID: 11400000, guid: 9c431ceb5c84a4acd9072409d56eae5a, type: 2}

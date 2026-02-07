@@ -14,7 +14,7 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
 
     [Header("Minigames")]
     public List<MinigameData> minigames;
-    private int currentMinigameIndex = 0;
+    private int currentMinigameIndex;
 
     [Header("Systems")]
     public WeedGameController weedGameController;
@@ -36,6 +36,28 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
 
 
     // =========================
+    // RESTORE SAVED PROGRESS
+    // =========================
+    public void RefreshProgressFromSave()
+    {
+        if (GameProgressManager.Instance == null)
+            return;
+
+        currentMinigameIndex = 0;
+
+        for (int i = 0; i < minigames.Count; i++)
+        {
+            if (GameProgressManager.Instance.IsMinigameComplete(minigames[i]))
+                currentMinigameIndex++;
+            else
+                break;
+        }
+
+        Debug.Log($"{neighborName} restored minigame index: {currentMinigameIndex}");
+    }
+
+    
+    // =========================
     // PLAYER INTERACTION
     // =========================
     private void Update()
@@ -52,7 +74,9 @@ public class NPCQuestGiver : MonoBehaviour, IInteractable
     }
 
     private void HandleInteraction()
-    {
+    {   
+        RefreshProgressFromSave();
+
         if (questActive) return;
 
         // If all minigames are completed, always play noMinigame dialogue
