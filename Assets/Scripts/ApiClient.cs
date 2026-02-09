@@ -9,45 +9,50 @@ public class ApiClient : MonoBehaviour
 
     private string activeBaseUrl;
 
+    public string BackendBaseUrl => activeBaseUrl;
+
     private void Awake()
     {
-        activeBaseUrl = backendConfig.remoteBaseUrl;
+        activeBaseUrl = backendConfig.remoteBaseUrl.TrimEnd('/');
     }
 
-    public IEnumerator GetExample(
+    public IEnumerator SendJson(
+        string url,
+        string json,
+        string method,
         Action<string> onSuccess,
-        Action<string> onError
+        Action onFailure
     )
     {
-        yield return StartCoroutine(SendRequest(
-            $"{activeBaseUrl}/example",
-            onSuccess,
-            () => TryLocalFallback(onSuccess, onError)
-        ));
-    }
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
 
-    private void TryLocalFallback(
-        Action<string> onSuccess,
-        Action<string> onError
-    )
-    {
-        if (activeBaseUrl == backendConfig.localBaseUrl)
+        UnityWebRequest request =
+            new UnityWebRequest(url, method);
+
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.timeout = backendConfig.timeoutSeconds;
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
         {
-            onError?.Invoke("Both backends unreachable");
-            return;
+            onSuccess?.Invoke(request.downloadHandler.text);
         }
-
-        Debug.LogWarning("Switching to local backend...");
-        activeBaseUrl = backendConfig.localBaseUrl;
-
-        StartCoroutine(SendRequest(
-            $"{activeBaseUrl}/example",
-            onSuccess,
-            () => onError?.Invoke("Both backends unreachable")
-        ));
+        else
+        {
+            Debug.LogError(
+                $"API ERROR [{request.responseCode}]\n" +
+                $"{request.error}\n" +
+                $"{request.downloadHandler.text}"
+            );
+            onFailure?.Invoke();
+        }
     }
 
-    private IEnumerator SendRequest(
+    public IEnumerator Get(
         string url,
         Action<string> onSuccess,
         Action onFailure
@@ -65,7 +70,10 @@ public class ApiClient : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"{url} failed: {request.error}");
+                Debug.LogError(
+                    $"GET ERROR [{request.responseCode}]\n" +
+                    $"{request.error}"
+                );
                 onFailure?.Invoke();
             }
         }

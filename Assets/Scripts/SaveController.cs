@@ -13,12 +13,10 @@ public class SaveController : MonoBehaviour
             $"save_slot_{SlotId}.json"
         );
 
-    /* =======================
-     * SAVE
-     * ======================= */
     public void SaveGame()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerObj =
+            GameObject.FindGameObjectWithTag("Player");
 
         SaveData saveData = new SaveData
         {
@@ -28,42 +26,82 @@ public class SaveController : MonoBehaviour
             player = new PlayerSaveData()
         };
 
-        // Player identity (playerId == slotId)
+        // Player identity
         saveData.player.saveslotId = SlotId;
 
         // Player state
-        saveData.player.playerPosition = playerObj.transform.position;
+        saveData.player.playerPosition =
+            playerObj.transform.position;
+
         saveData.player.hungerLevel =
-            playerObj.GetComponent<PlayerHunger>().currentHunger;
+            playerObj.GetComponent<PlayerHunger>()
+                .currentHunger;
 
         // World state
-        CinemachineConfiner confiner = FindObjectOfType<CinemachineConfiner>();
+        CinemachineConfiner confiner =
+            FindObjectOfType<CinemachineConfiner>();
+
         saveData.player.mapBoundary =
-            confiner.m_BoundingShape2D.gameObject.name;
+            confiner.m_BoundingShape2D
+                .gameObject.name;
 
         // Progression
-        GameProgressManager progress = GameProgressManager.Instance;
+        GameProgressManager progress =
+            GameProgressManager.Instance;
+
         saveData.player.completedMinigames =
             progress.GetCompletedMinigamesForSave();
 
-        // Local save
+
         File.WriteAllText(
             SaveFilePath,
             JsonUtility.ToJson(saveData, true)
         );
 
-        Debug.Log($"Game saved to slot {SlotId}");
-        Debug.Log($"Save file path: {SaveFilePath}");
+        Debug.Log($"Local save written to {SaveFilePath}");
+
+        UploadPlayerSave(saveData.player);
     }
 
-    /* =======================
-     * LOAD
-     * ======================= */
+    private void UploadPlayerSave(PlayerSaveData playerData)
+    {
+        ApiClient api =
+            FindObjectOfType<ApiClient>();
+
+        int id = playerData.saveslotId;
+
+        string url =
+            $"{api.BackendBaseUrl}/saveslot/{id}/player/{id}";
+
+        string json =
+            JsonUtility.ToJson(playerData, true);
+
+        Debug.Log($"Uploading player save to {url}");
+        Debug.Log(json);
+
+        StartCoroutine(
+            api.SendJson(
+                url,
+                json,
+                "PATCH",
+                response =>
+                {
+                    Debug.Log("Remote player save successful");
+                    Debug.Log(response);
+                },
+                () =>
+                {
+                    Debug.LogError("Remote player save FAILED");
+                }
+            )
+        );
+    }
+
     public void LoadGame()
     {
         if (!File.Exists(SaveFilePath))
         {
-            Debug.Log("No save found for this slot. Creating new save.");
+            Debug.Log("No local save found, creating new save.");
             SaveGame();
             return;
         }
@@ -83,35 +121,37 @@ public class SaveController : MonoBehaviour
         }
     }
 
-    /* =======================
-     * APPLY SAVE DATA
-     * ======================= */
     private void ApplySaveData(SaveData saveData)
     {
         if (saveData == null || saveData.player == null)
         {
-            Debug.LogError("SaveData or PlayerSaveData is null");
+            Debug.LogError("Invalid save data");
             return;
         }
 
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerObj =
+            GameObject.FindGameObjectWithTag("Player");
 
         // Player state
         playerObj.transform.position =
             saveData.player.playerPosition;
-        playerObj.GetComponent<PlayerHunger>().currentHunger =
+
+        playerObj.GetComponent<PlayerHunger>()
+            .currentHunger =
             saveData.player.hungerLevel;
 
         // World state
-        CinemachineConfiner confiner = FindObjectOfType<CinemachineConfiner>();
+        CinemachineConfiner confiner =
+            FindObjectOfType<CinemachineConfiner>();
+
         confiner.m_BoundingShape2D =
             GameObject.Find(saveData.player.mapBoundary)
                 .GetComponent<PolygonCollider2D>();
 
         // Progression
-        GameProgressManager progress = GameProgressManager.Instance;
-        progress.LoadCompletedMinigames(
-            saveData.player.completedMinigames
-        );
+        GameProgressManager.Instance
+            .LoadCompletedMinigames(
+                saveData.player.completedMinigames
+            );
     }
 }

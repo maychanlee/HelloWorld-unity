@@ -10,35 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828b3a68cbbb14abfb0feaa4fbf3a285, type: 3}
-  m_Name: Kayu2Post
+  m_Name: Gaia
   m_EditorClassIdentifier: 
   lines:
-  - speakerName: Kayu
-    text: 'Looking spotless already! '
+  - speakerName: Clay
+    text: Mom, I just learned how to say "Hello, World" in python
     hasYesNo: 0
     yesNextIndex: 0
     noNextIndex: 0
     autoAdvanceDelay: 0.75
-  - speakerName: Kayu
-    text: 'It''s hot today, how are you? '
+  - speakerName: Gaia
+    text: That's great, sweetie.
     hasYesNo: 0
     yesNextIndex: 0
     noNextIndex: 0
     autoAdvanceDelay: 0.75
-  - speakerName: Kayu
-    text: 'In case you''re curious, '
+  - speakerName: Gaia
+    text: You're in front of the computer too much these days
     hasYesNo: 0
     yesNextIndex: 0
     noNextIndex: 0
     autoAdvanceDelay: 0.75
-  - speakerName: Kayu
-    text: How are you in Malay is ...
+  - speakerName: Gaia
+    text: Let's step away and learn how to say "Hello, World" to the real world
     hasYesNo: 0
     yesNextIndex: 0
     noNextIndex: 0
     autoAdvanceDelay: 0.75
-  - speakerName: Kayu
-    text: Apa khabar
+  - speakerName: Gaia
+    text: If you get hungry, there's food on the stove.
+    hasYesNo: 0
+    yesNextIndex: 0
+    noNextIndex: 0
+    autoAdvanceDelay: 0.75
+  - speakerName: Gaia
+    text: 'Just walk towards it. '
     hasYesNo: 0
     yesNextIndex: 0
     noNextIndex: 0

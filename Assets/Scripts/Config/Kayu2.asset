@@ -15,7 +15,7 @@ MonoBehaviour:
   neighborId: 2
   minigameId: 2
   neighborName: KAYU
-  completionPhrase: APA KHAPAR
+  completionPhrase: APA KHABAR
   weedConfig: {fileID: 11400000, guid: fd68030118c054a2299e64d8c349bccf, type: 2}
   preGameDialogue: {fileID: 11400000, guid: edf2ec1dfb39e4f5fb3ba68373bcdf02, type: 2}
   postGameDialogue: {fileID: 11400000, guid: 700295ddc926e4b9cabfe0405bfb8508, type: 2}
