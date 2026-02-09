@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neighborId: 2
   minigameId: 1
+  neighborName: KAYU
+  completionPhrase: HELO DUNIA
+  weedConfig: {fileID: 11400000, guid: 5203b2a341dd7457fbd496044edbafa7, type: 2}
   preGameDialogue: {fileID: 11400000, guid: 42470a96a83d3449e811704d948dcef3, type: 2}
   postGameDialogue: {fileID: 11400000, guid: 122a09b028b6047ea9223e07b4f32567, type: 2}
   notEnoughHungerDialogue: {fileID: 11400000, guid: 8b52e878e472b4035b73ae2eddad6ec2, type: 2}

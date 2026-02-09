@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HungerBoost : MonoBehaviour
+public class HungerBoost : MonoBehaviour, IInteractable
 {
     [SerializeField] private BoxCollider2D hungerBoostPos;
     public int boostAmount;
+
+    public void Interact()
+    {
+        return;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
