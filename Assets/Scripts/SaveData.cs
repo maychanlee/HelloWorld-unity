@@ -10,20 +10,28 @@ public class MinigameSaveEntry
     public int minigameId;
     public string completionPhrase;
     public float completionTime;
-    internal MinigameData minigameData;
 }
 
+[System.Serializable]
+public class PlayerSaveData
+{
+    public int saveslotId;
+
+    public Vector3 playerPosition;
+    public int hungerLevel;
+
+    public string mapBoundary;
+
+    public List<MinigameSaveEntry> completedMinigames =
+        new List<MinigameSaveEntry>();
+}
 
 [System.Serializable]
 public class SaveData
 {
-    // Player
-    public Vector3 playerPosition;
-    public int hungerLevel;
+    public string createdAt;
+    public int id;
+    public string lastSaved;
 
-    // World
-    public string mapBoundary;
-
-    // Progression
-    public List<MinigameSaveEntry> completedMinigames = new List<MinigameSaveEntry>();
+    public PlayerSaveData player;
 }
