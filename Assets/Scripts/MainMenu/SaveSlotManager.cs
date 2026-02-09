@@ -4,11 +4,11 @@ public class SaveSlotManager : MonoBehaviour
 {
     public static SaveSlotManager Instance { get; private set; }
 
-    public int CurrentSlotId { get; private set; } = -1;
+    public int CurrentSlotId { get; private set; }
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -21,6 +21,5 @@ public class SaveSlotManager : MonoBehaviour
     public void SetSlot(int slotId)
     {
         CurrentSlotId = slotId;
-        Debug.Log($"Save slot set to: {slotId}");
     }
 }
