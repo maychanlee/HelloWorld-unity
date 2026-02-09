@@ -85,8 +85,8 @@ public class GameProgressManager : MonoBehaviour
                 uniqueMinigames.Add(key);
             }
         }
-        //Don't count Sorbear and Gaia's Dialogue
-        int total = uniqueMinigames.Count - 2;
+        //Don't count Sorbear's Dialogue
+        int total = uniqueMinigames.Count - 1;
 
         return total;
     }
