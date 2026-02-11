@@ -3,9 +3,9 @@ This is the unity repo, frontend, for a complete project for my Ada Developer Ac
 You can find the backend of the repo at this [link](https://github.com/maychanlee/HelloWorld-flask)
 
 ## About the project
-In coding, one of the first lines of code people learn is how to print the statement “Hello, World.” There’s a specific level of excitement programmers share when they’re able to learn how to say “Hello,” but we often don’t share that same level of sentiment when learning real-world languages. As we move further into the age of technology—where phones are glued to our eyes—we are losing our social skills and forgetting the value of human connection and interaction.\
+In coding, one of the first lines of code people learn is how to print the statement “Hello, World.” There’s a specific level of excitement programmers share when they’re able to learn how to say “Hello,” but we often don’t share that same level of sentiment when learning real-world languages. As we move further into the age of technology—where phones are glued to our eyes—we are losing our social skills and forgetting the value of human connection and interaction.
 
-This game aims to remind players of real-world connections by encouraging them to reach out to people within their communities or those close to them, like their neighbors, and share a desire to understand different cultures and languages.\
+This game aims to remind players of real-world connections by encouraging them to reach out to people within their communities or those close to them, like their neighbors, and share a desire to understand different cultures and languages.
 
 This is a 2D game designed with a nostalgic aura to bring us back to simpler times. Through neighborhood exploration and cultural exchange, players can learn how to say simple, common phrases. The game simulates real-world social interactions by promoting kindness and engaging in conversations with neighbors. It reminds players how easy it can be to start a social interaction and shows that even learning one word in another language helps connect us all.
 
